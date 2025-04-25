@@ -3,12 +3,12 @@ package org.carlosDavi;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.carlosDavi.Model.Aluno;
-import org.carlosDavi.Model.Curso;
-import org.carlosDavi.Model.Inscricao;
+import org.carlosDavi.Model.*;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,21 +18,29 @@ public class Main {
         try{
             em.getTransaction().begin();
 
-            Aluno aluno = new Aluno();
-            aluno.setNome("Carlos");
+            Marca marca = new Marca();
+            marca.setNome("marca 1");
 
-            Curso curso = new Curso();
-            curso.setTitulo("Java JPA");
+            Acessorio acessorio = new Acessorio();
+            acessorio.setNome("Acessorio 1");
 
-            em.persist(aluno);
-            em.persist(curso);
+            Acessorio acessorio2 = new Acessorio();
+            acessorio2.setNome("Acessório 2");
 
-            Inscricao inscricao = new Inscricao();
-            inscricao.setAluno(aluno);
-            inscricao.setCurso(curso);
-            inscricao.setDataInscricao(LocalDate.now());
+            List<Acessorio> acessorios = new ArrayList<>();
 
-            em.persist(inscricao);
+            acessorios.add(acessorio);
+            acessorios.add(acessorio2);
+
+            Carro carro = new Carro();
+            carro.setNome("Carro exemplo");
+            carro.setMarca(marca);
+            carro.setAcessorios(acessorios);
+
+            em.persist(marca);
+            em.persist(acessorio);
+            em.persist(acessorio2);
+            em.persist(carro);
 
             em.getTransaction().commit();
 
